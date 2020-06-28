@@ -1,4 +1,3 @@
 export default function printMe() {
-    alert('I get called from print.js!');
-    console.log("Wooo hooo!")
+    console.log('What has happened nowYES!');
   }
