@@ -1,28 +1,34 @@
-import _ from "lodash";
 import printMe from "./print.js";
-import './styles.css';
+import "./styles.css";
 
-function component() {
-  const element = document.createElement("div");
-  const btn = document.createElement('button');
+function getComponent() {
+  return import(/* webpackChunkName: "lodash" */ "lodash")
+    .then(({ default: _ }) => {
+      const element = document.createElement("div");
 
-  element.innerHTML = _.join(["Hello", "webpack LITY PLAN - OGARNIJ"], " ");
-  btn.innerHTML = "Click me and check the console";
-  btn.onclick = printMe;
+      element.innerHTML = _.join(["Hello", "webpack"], " ");
 
-  element.appendChild(btn);
+      const btn = document.createElement("button");
+      btn.innerHTML = "Click me and check the console";
+      btn.onclick = printMe;
+      element.appendChild(btn);
 
-  return element;
+      return element;
+    })
+    .catch((error) => "An error occurred while loading the component");
 }
 
-let element = component(); // Store the element to re-render on print.js changes
-document.body.appendChild(element);
+getComponent().then((component) => {
+  document.body.appendChild(component);
+});
 
-if (module.hot) {
-  module.hot.accept('./print.js', function() {
-    console.log('Accepting the updated printMe module!');
-    document.body.removeChild(element);
-    element = component(); // Re-render the "component" to update the click handler
-    document.body.appendChild(element);
-  })
-}
+// let element = component(); // Store the element to re-render on print.js changes
+
+// if (module.hot) {
+//   module.hot.accept('./print.js', function() {
+//     console.log('Accepting the updated printMe module!');
+//     document.body.removeChild(element);
+//     element = component(); // Re-render the "component" to update the click handler
+//     document.body.appendChild(element);
+//   })
+// }
