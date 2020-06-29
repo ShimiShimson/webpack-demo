@@ -1,21 +1,37 @@
 import printMe from "./print.js";
 import "./styles.css";
 
-function getComponent() {
-  return import(/* webpackChunkName: "lodash" */ "lodash")
-    .then(({ default: _ }) => {
-      const element = document.createElement("div");
+// Sync version commented out
+// Async version used
+async function getComponent() {
+  // return import(/* webpackChunkName: "lodash" */ "lodash")
+  //   .then(({ default: _ }) => {
+  //     const element = document.createElement("div");
 
-      element.innerHTML = _.join(["Hello", "webpack"], " ");
+  //     element.innerHTML = _.join(["Hello", "webpack"], " ");
 
-      const btn = document.createElement("button");
-      btn.innerHTML = "Click me and check the console";
-      btn.onclick = printMe;
-      element.appendChild(btn);
+  //     const btn = document.createElement("button");
+  //     btn.innerHTML = "Click me and check the console";
+  //     btn.onclick = printMe;
+  //     element.appendChild(btn);
 
-      return element;
-    })
-    .catch((error) => "An error occurred while loading the component");
+  //     return element;
+  //   })
+  //   .catch((error) => "An error occurred while loading the component");
+
+  const { default: _ } = await import(
+    /* webpackChunkName: "lodash" */ "lodash"
+  );
+  const element = document.createElement("div");
+
+  element.innerHTML = _.join(["Hello", "webpack"], " ");
+
+  const btn = document.createElement("button");
+  btn.innerHTML = "Click me and check the console";
+  btn.onclick = printMe;
+  element.appendChild(btn);
+
+  return element;
 }
 
 getComponent().then((component) => {
