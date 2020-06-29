@@ -1,4 +1,5 @@
-import printMe from "./print.js";
+import {Print} from "./print.js";
+import {printMe} from "./print.js";
 import "./styles.css";
 
 // Sync version commented out
@@ -29,6 +30,7 @@ async function getComponent() {
   const btn = document.createElement("button");
   btn.innerHTML = "Click me and check the console";
   btn.onclick = printMe;
+  element.onclick = Print.bind(null, 'Hellouuuu webpack!');
   element.appendChild(btn);
 
   return element;
