@@ -1,5 +1,4 @@
-export function Print() {
-    console.log(text);
+export function Print(text) {
     console.log(text);
   }
 
