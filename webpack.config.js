@@ -16,6 +16,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        include: path.resolve(__dirname, 'src'),
         use: ['style-loader', 'css-loader'],
       },
     ],
@@ -27,14 +28,14 @@ module.exports = {
     })
   ],
   output: {
-    filename: "[name].[contenthash].js",
+    pathinfo: false,
+    // filename: "[name].[contenthash].js",
     // chunkFilename: '[name].bundle.js',
     // publicPath: 'dist/',
     // publicPath: '/',
-    path: path.resolve(__dirname, "dist"),
+    // path: path.resolve(__dirname, "dist"),
   },
   optimization: {
-    moduleIds: 'hashed',
     runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
